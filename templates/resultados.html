@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h2>Resultados de tu sesión</h2>
+
+<div class="resumen-porcentaje">
+    <div class="circulo" style="--porcentaje: {{ porcentaje }};">
+        <span>{{ porcentaje }}%</span>
+    </div>
+    <p class="resumen-texto">
+        {% if porcentaje >= 80 %}
+            Excelente dominio del tema.
+        {% elif porcentaje >= 50 %}
+            Vas bien, pero conviene repasar un poco más.
+        {% else %}
+            Te conviene repasar este tema antes de seguir.
+        {% endif %}
+    </p>
+</div>
+
+<div class="stats">
+    <div class="stat stat-correcto">
+        <span class="stat-numero">{{ aciertos }}</span>
+        <span class="stat-label">Aciertos</span>
+    </div>
+    <div class="stat stat-incorrecto">
+        <span class="stat-numero">{{ errores }}</span>
+        <span class="stat-label">Errores</span>
+    </div>
+    <div class="stat">
+        <span class="stat-numero">{{ total }}</span>
+        <span class="stat-label">Total</span>
+    </div>
+</div>
+
+<a href="{{ url_for('index') }}" class="boton-principal boton-enlace">Practicar otro tema</a>
+{% endblock %}

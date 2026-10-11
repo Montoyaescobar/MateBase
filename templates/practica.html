@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="barra-info">
+    <span class="etiqueta">{{ tema }}</span>
+    <span class="etiqueta etiqueta-{{ dificultad }}">
+        {% if dificultad == "facil" %}Fácil{% elif dificultad == "medio" %}Medio{% else %}Difícil{% endif %}
+    </span>
+</div>
+
+<div class="progreso-wrap">
+    <div class="progreso-texto">Ejercicio {{ actual }} de {{ cantidad }}</div>
+    <div class="progreso-barra">
+        <div class="progreso-relleno" style="width: {{ (actual / cantidad * 100) | round(1) }}%;"></div>
+    </div>
+</div>
+
+     <h2 class="enunciado">{{ ejercicio.enunciado | safe }}</h2>
+     {% if ejercicio.recuerda %}
+     <div class="recuerda-mensaje">
+         {{ ejercicio.recuerda | safe }}
+     </div>
+     {% endif %}
+
+{% if resultado %}
+    {% if resultado.correcto %}
+        <div class="retro retro-correcto">
+            <span class="retro-icono">✓</span>
+            <span>¡Correcto! Vas muy bien.</span>
+        </div>
+    {% else %}
+        <div class="retro retro-incorrecto">
+            <span class="retro-icono">✕</span>
+            <span>Incorrecto. La respuesta correcta era: <strong>{{ resultado.respuesta_correcta | safe }}</strong></span>
+        </div>
+    {% endif %}
+    <form action="{{ url_for('siguiente') }}" method="post">
+        <button type="submit" class="boton-principal">
+            {% if actual >= cantidad %}Ver resultados{% else %}Siguiente ejercicio{% endif %}
+        </button>
+    </form>
+{% else %}
+    <form action="{{ url_for('practica') }}" method="post" class="formulario">
+        <input type="hidden" name="ejercicio_id" value="{{ ejercicio_id }}">
+        <div class="lista-opciones">
+            {% for opcion in ejercicio.opciones %}
+            <label class="opcion">
+                <input type="radio" name="opcion" value="{{ loop.index0 }}" required>
+                <span class="opcion-letra">{{ ["A","B","C","D"][loop.index0] }}</span>
+                <span>{{ opcion | safe }}</span>
+            </label>
+            {% endfor %}
+        </div>
+        <button type="submit" class="boton-principal">Responder</button>
+    </form>
+{% endif %}
+{% endblock %}

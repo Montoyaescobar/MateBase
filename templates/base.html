@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MateBase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="hoja">
+        <header class="encabezado">
+            <div class="logo"><img src="{{ url_for('static', filename='img/autonomaRedimensionadoSinfondo.png') }}" alt="Logo Universidad Autónoma del Cauca"></div>
+            <div>
+                <h1>MateBase</h1>
+                <p class="subtitulo">Bases matemáticas antes del cálculo integral.</p>
+            </div>
+        </header>
+        <main class="tarjeta">
+            {% block contenido %}{% endblock %}
+        </main>
+        <footer class="pie">Universidad Autónoma del Cauca &middot; Cálculo II</footer>
+    </div>
+</body>
+</html>

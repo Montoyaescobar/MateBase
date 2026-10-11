@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="hero">
+    <p class="hero-ojo">Un autonomo antes de integrar ya domina lo basico 🔥💙</p>
+    <h2 class="hero-titulo">¿Qué vamos a repasar hoy?</h2>
+</div>
+
+{% if error %}
+<div class="alerta">{{ error }}</div>
+{% endif %}
+
+<form action="{{ url_for('configurar') }}" method="post" class="formulario">
+
+    <div class="campo">
+        <label>1. Elige un tema</label>
+        <div class="lista-temas">
+            {% for tema in temas %}
+            <label class="tema-opcion">
+                <input type="radio" name="tema" value="{{ loop.index0 }}" {% if loop.first %}checked{% endif %} required>
+                <span class="tema-icono">{{ iconos[loop.index0] }}</span>
+                <span>{{ tema }}</span>
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="campo">
+        <label>2. Cantidad de ejercicios</label>
+        <div class="fila-cantidad">
+            <input type="number" name="cantidad" min="{{ cantidad_min }}" max="{{ cantidad_max }}" value="10" required class="input-cantidad">
+            <span class="ayuda">Entre {{ cantidad_min }} y {{ cantidad_max }}</span>
+        </div>
+    </div>
+
+    <div class="campo">
+        <label>3. Nivel de dificultad</label>
+        <div class="pildoras">
+            <label class="pildora">
+                <input type="radio" name="dificultad" value="facil" checked required>
+                <span>Fácil</span>
+            </label>
+            <label class="pildora">
+                <input type="radio" name="dificultad" value="medio">
+                <span>Medio</span>
+            </label>
+            <label class="pildora">
+                <input type="radio" name="dificultad" value="dificil">
+                <span>Difícil</span>
+            </label>
+        </div>
+    </div>
+
+    <button type="submit" class="boton-principal">Comenzar práctica</button>
+</form>
+{% endblock %}
